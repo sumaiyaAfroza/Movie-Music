@@ -6,14 +6,20 @@ import Sun from "../assets/icons/sun.svg";
 import Logo from "../assets/logo.svg";
 import Ring from "../assets/ring.svg";
 import ShoppingCart from "../assets/shopping-cart.svg";
-import { ThemeContext } from "../context/index.js";
+import {MovieContext, ThemeContext} from "../context/index.js";
+import CartDetails from "./CartDetails.jsx";
 
 const Header = () => {
-
 const {darkMode, setDarkMode} = useContext(ThemeContext)
+  const [showCart, setShowCart] = useState(false)
+  const {state} = useContext(MovieContext)
 
   const [isVisible, setIsVisible] = useState(true)
   const lastScrollY = useRef(0)
+
+  const handleCartShow = () =>
+    state.cartData.length > 0 ? setShowCart(true) : setShowCart(false)
+
 
   useEffect(() => {
     const handleScroll = () => {
@@ -38,12 +44,12 @@ const {darkMode, setDarkMode} = useContext(ThemeContext)
 
   return (
     <>
-      {/*{*/}
-      {/*  shrowCart &&*/}
-      {/*  <CartDetails onClose={() => setShowCart(false)} className="!z-[999]"/>*/}
-      {/*}*/}
+      {
+        showCart &&
+        <CartDetails onClose={() => setShowCart(false)} className="z-999!"/>
+      }
       <header
-        // ref={headerRef}
+
         className={`fixed top-0 left-0 right-0 z-40 bg-white/80 dark:bg-[#12141D]/80 backdrop-blur-xl border-b border-gray-200 dark:border-gray-800 shadow-sm transition-all duration-300 ease-in-out ${
           isVisible
             ? 'translate-y-0'
@@ -95,7 +101,7 @@ const {darkMode, setDarkMode} = useContext(ThemeContext)
             <li>
               <button
                 className="relative bg-gradient-to-br from-primary/20 to-pink-500/10 dark:from-primary/10 dark:to-pink-500/5 hover:from-primary/30 hover:to-pink-500/20 dark:hover:from-primary/20 dark:hover:to-pink-500/10 rounded-xl backdrop-blur-md p-2.5 inline-block transition-all duration-300 hover:scale-110 hover:shadow-lg border border-primary/20 dark:border-primary/10"
-                // onClick={handleCartShow}
+                onClick={handleCartShow}
                 aria-label="Shopping cart"
               >
                 <img
@@ -105,11 +111,11 @@ const {darkMode, setDarkMode} = useContext(ThemeContext)
                   alt="Shopping cart"
                   className="transition-transform hover:scale-110"
                 />
-                {/*{state.cartData.length > 0 && (*/}
-                {/*  <span className="absolute -top-2 -right-2 bg-gradient-to-br from-primary to-[#12CF6F] text-white text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center shadow-lg animate-bounce border-2 border-white dark:border-[#12141D]">*/}
-                {/*    {state.cartData.length}*/}
-                {/*  </span>*/}
-                {/*)}*/}
+                {state.cartData.length > 0 && (
+                  <span className="absolute -top-2 -right-2 bg-gradient-to-br from-primary to-[#12CF6F] text-white text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center shadow-lg animate-bounce border-2 border-white dark:border-[#12141D]">
+                    {state.cartData.length}
+                  </span>
+                )}
               </button>
             </li>
           </ul>
