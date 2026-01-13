@@ -1,6 +1,8 @@
 import React, {useContext, useState} from 'react';
 import {MovieContext} from "../context/index.js";
 import {toast} from "react-toastify/unstyled";
+import Rating from "./Rating.jsx";
+import {getImgUrl} from "../utils/cine-utils.js";
 
 const MovieCard = ({movie}) => {
   const {state, dispatch} = useContext(MovieContext)
@@ -40,6 +42,8 @@ const MovieCard = ({movie}) => {
               src={getImgUrl(`${movie.cover}`)}
               alt={movie.title}
             />
+
+
             {/* Price badge */}
             <div className="absolute top-3 right-3 bg-primary text-black font-bold px-3 py-1.5 rounded-full text-sm shadow-lg backdrop-blur-sm">
               ${movie.price}
