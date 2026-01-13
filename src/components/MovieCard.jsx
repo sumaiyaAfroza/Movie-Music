@@ -3,11 +3,12 @@ import {MovieContext} from "../context/index.js";
 import {toast} from "react-toastify/unstyled";
 import Rating from "./Rating.jsx";
 import {getImgUrl} from "../utils/cine-utils.js";
+import MovieDetailsModal from "./MovieDetailsModal.jsx";
 
 const MovieCard = ({movie}) => {
   const {state, dispatch} = useContext(MovieContext)
   const [selectedMovie, setSelectedMovie] = useState(null)
-  const [, set] = useState()
+  const [showModal, setShowModal] = useState(false)
 
   const handleAddToCart = (event, movie) => {
     event.stopPropagation()
@@ -21,15 +22,23 @@ const MovieCard = ({movie}) => {
     }
   }
 
+  const handleMovieSelection = (movie) => {
+    setShowModal(true)
+    setSelectedMovie(movie)
+  }
+  const handleModalClose = () => {
+    setShowModal(false)
+    setSelectedMovie(null)
+  }
   return (
     <>
-      {/*{showModal && (*/}
-      {/*  <MovieDetailsModal*/}
-      {/*    movie={selectedMovie}*/}
-      {/*    onClose={handleModalClose}*/}
-      {/*    onCartAdd={handleAddToCart}*/}
-      {/*  />*/}
-      {/*)}*/}
+      {showModal && (
+        <MovieDetailsModal
+          movie={selectedMovie}
+          onClose={handleModalClose}
+          onCartAdd={handleAddToCart}
+        />
+      )}
       <figure className="group relative h-full flex flex-col p-4 border border-black/10 dark:border-white/10 shadow-sm hover:shadow-2xl dark:hover:shadow-2xl dark:hover:shadow-primary/20 rounded-xl bg-white dark:bg-gray-900 transition-all duration-500 hover:-translate-y-2 overflow-hidden">
         {/* Gradient overlay on hover */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-xl" />
