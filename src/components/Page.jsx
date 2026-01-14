@@ -1,14 +1,28 @@
-import React from 'react';
+import React, {useContext, useEffect} from 'react';
 import Header from "./Header.jsx";
 import MovieList from "./MovieList.jsx";
 import Sidebar from "./Sidebar.jsx";
 import Footer from "./Footer.jsx";
+import {ThemeContext} from "../context/index.js";
 
 
 
 const Page = () => {
+
+  const {darkMode} = useContext(ThemeContext)
+
+  useEffect(() => {
+    if(darkMode) {
+      document.documentElement.classList.add('dark')
+      localStorage.setItem('darkMode', 'true')
+    }
+    else {
+      document.documentElement.classList.remove('dark')
+      localStorage.setItem('darkMode', 'false')
+    }
+  }, [darkMode]);
   return (
-    <div className="min-h-screen max-w-8xl mx-auto">
+    <div className="min-h-screen max-w-8xl mx-auto bg-white dark:bg-black">
       {/* Centered content area */}
       <div className=" px-4 py-6">
         {/* Optional decorative background pattern */}
