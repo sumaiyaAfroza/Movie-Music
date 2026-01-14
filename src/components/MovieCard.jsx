@@ -1,9 +1,10 @@
 import React, {useContext, useState} from 'react';
 import {MovieContext} from "../context/index.js";
-import {toast} from "react-toastify/unstyled";
+
 import Rating from "./Rating.jsx";
 import {getImgUrl} from "../utils/cine-utils.js";
 import MovieDetailsModal from "./MovieDetailsModal.jsx";
+import {toast} from "react-toastify";
 
 const MovieCard = ({movie}) => {
   const {state, dispatch} = useContext(MovieContext)

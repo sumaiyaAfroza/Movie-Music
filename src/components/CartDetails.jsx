@@ -2,9 +2,13 @@ import React, {useContext, useState} from 'react';
 import {MovieContext} from "../context/index.js";
 import {toast} from "react-toastify/unstyled";
 import {getImgUrl} from "../utils/cine-utils.js";
+import Checkout from "../assets/icons/checkout.svg";
+import Delete from "../assets/delete.svg";
 
-const CartDetails = () => {
+
+const CartDetails = ({onClose}) => {
   const {state, dispatch} = useContext(MovieContext)
+  const [showClearModal, setShowClearModal] = useState(false)
 
   const handleDeleteCart = (item) => {
     dispatch({
@@ -14,6 +18,15 @@ const CartDetails = () => {
     toast.success(`Removed ${item.title} from Cart`)
   }
 
+const handleClearCart = () =>{
+    dispatch({
+      type: 'clear_cart'
+    })
+  setShowClearModal(false)
+}
+const hasItems = state.cartData.length > 0
+
+  const totalPrice = state.cartData.reduce((total, item) => total + item.price,0)
 
   return (
     <>

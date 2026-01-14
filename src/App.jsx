@@ -2,7 +2,7 @@ import Page from "./components/Page.jsx";
 import {MovieContext} from "./context/index.js";
 import {useReducer, useState} from "react";
 import {CartReducer , initialValue} from "./Reducers/CartReducer.js";
-import {ToastContainer} from "react-toastify/unstyled";
+import {ToastContainer} from "react-toastify";
 
 
 function App() {
@@ -13,7 +13,10 @@ function App() {
     <>
      <MovieContext.Provider value={{state, dispatch}}>
        <Page/>
-       <ToastContainer/>
+       <ToastContainer
+         position={"bottom-right"}
+         autoClose={2000}
+       />
      </MovieContext.Provider>
     </>
   )
