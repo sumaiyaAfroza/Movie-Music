@@ -1,6 +1,20 @@
-import React from 'react';
+import React, {useContext, useState} from 'react';
+import {MovieContext} from "../context/index.js";
+import {toast} from "react-toastify/unstyled";
+import {getImgUrl} from "../utils/cine-utils.js";
 
 const CartDetails = () => {
+  const {state, dispatch} = useContext(MovieContext)
+
+  const handleDeleteCart = (item) => {
+    dispatch({
+      type: 'Remove_From_Cart',
+      payload: item
+    })
+    toast.success(`Removed ${item.title} from Cart`)
+  }
+
+
   return (
     <>
       {/* Clear Cart Confirmation Modal */}

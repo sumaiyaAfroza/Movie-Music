@@ -15,8 +15,6 @@ function App() {
        <Page/>
        <ToastContainer/>
      </MovieContext.Provider>
-
-
     </>
   )
 }
