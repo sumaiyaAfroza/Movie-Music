@@ -11,27 +11,17 @@ function App() {
     const savedMode = localStorage.getItem("darkMode");
     return savedMode === null ? true : savedMode === "true";
   });
-
+  const [isCartLoading, setIsCartLoading] = useState(false)
   const [state, dispatch] = useReducer(CartReducer, initialValue);
 
-  // Load cart once
   useEffect(() => {
-    const loadCartData = async () => {
-      const savedCart = await cartStorage.loadCart();
-      if (savedCart.length > 0) {
-        dispatch({
-          type: "LOAD_CART",
-          payload: savedCart,
-        });
-      // }
-    };
-    loadCartData();
+    const loadCartData = () => {
+      const savedCart = cartStorage.loadCart()
+
+    }
   }, []);
 
-  // Save cart on change (empty হলে key remove হবে)
-  useEffect(() => {
-    cartStorage.saveCart(state.cartData);
-  }, [state.cartData]);
+
 
   return (
     <ThemeContext.Provider value={{ darkMode, setDarkMode }}>

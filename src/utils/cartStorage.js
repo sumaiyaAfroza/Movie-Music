@@ -4,35 +4,68 @@ export const cartStorage = {
 
   async saveCart(cartData) {
     try {
-      if (!cartData || cartData.length === 0) {
-        await localforage.removeItem('cartData')
+      if(!cartData || cartData.length === 0 ) {
+        await localforage.removeItem("cartData")
       }
-      else {
+      else  {
         await localforage.setItem('cartData', cartData)
       }
-    }
-    catch (error) {
-      console.error("Error saving cart:", error);
-    }
-  },
-
-
-  async loadCart() {
-    try {
-      const cartData = await localforage.getItem("cartData");
-      return cartData || [];
     } catch (error) {
-      console.error("Error loading cart:", error);
-      return [];
+      console.error('error saving cart', error)
+
     }
   },
 
 
-  async clearCart() {
+  // async saveCart(cartData) {
+  //   try {
+  //     if (!cartData || cartData.length === 0) {
+  //       await localforage.removeItem('cartData')
+  //     }
+  //     else {
+  //       await localforage.setItem('cartData', cartData)
+  //     }
+  //   }
+  //   catch (error) {
+  //     console.error("Error saving cart:", error);
+  //   }
+  // },
+
+
+async loadCart () {
     try {
-      await localforage.removeItem("cartData");
+      const cartData = await localforage.getItem('cartData')
+      return cartData || []
     } catch (error) {
-      console.error("Error clearing cart:", error);
+      console.error("error Loading cart" , error)
     }
-  },
+},
+
+  // async loadCart() {
+  //   try {
+  //     const cartData = await localforage.getItem("cartData");
+  //     return cartData || [];
+  //   } catch (error) {
+  //     console.error("Error loading cart:", error);
+  //     return [];
+  //   }
+  // },
+
+  async clearCart () {
+    try {
+      await localforage.removeItem('cartData')
+
+    } catch (error) {
+      console.error("Error clearing cart" , error)
+
+    }
+  }
+
+  // async clearCart() {
+  //   try {
+  //     await localforage.removeItem("cartData");
+  //   } catch (error) {
+  //     console.error("Error clearing cart:", error);
+  //   }
+  // },
 }
