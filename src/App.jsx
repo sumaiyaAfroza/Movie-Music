@@ -15,11 +15,24 @@ function App() {
   const [state, dispatch] = useReducer(CartReducer, initialValue);
 
   useEffect(() => {
-    const loadCartData = () => {
-      const savedCart = cartStorage.loadCart()
-
+    const loadCartData = async () => {
+      const savedCarts = await cartStorage.loadCart()
+      if(savedCarts.length > 0) {
+        dispatch({
+          type: "Load_Cart",
+          payload : savedCarts
+        })
+      }
+      setIsCartLoading(true)
     }
+    loadCartData()
   }, []);
+
+    useEffect(() => {
+      if(isCartLoading) {
+        cartStorage.saveCart(state.cartData)
+      }
+    }, [state.cartData, isCartLoading]);
 
 
 

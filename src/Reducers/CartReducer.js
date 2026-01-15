@@ -19,6 +19,11 @@ export const CartReducer = (state, action) => {
         ...state,
         cartData: []
       }
+    case "Load_Cart" :
+      return {
+        ...state,
+        cartData: action.payload
+      }
 
 
       default:
